@@ -1,38 +1,55 @@
 .App {
   text-align: center;
+  color: #4d4d4d;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  text-align: center;
+  font-size: 3em;
+  line-height: 1.4em;
+  margin-bottom: 0.2em;
+  color: rgba(175, 47, 47, 0.15);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.TodoBox {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.box-size {
+  width: 40vw;
+  height: 5vh;
+  margin: 0 auto;
+  border: 1px solid #999;
+  line-height: 5vh;
+}
+
+.input-field {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.input-field .all-check {
+  display: fixed;
+  top: auto;
+  width: 5vh;
+  height: 5vh;
+  /* line-height: 5vh; */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-field input {
+  width: 40vw;
+  border: none;
+}
+
+.input-field input:focus {
+  outline: none;
+}
+
+.check-icon-on {
+  color: #4d4d4d;
+}
+
+.check-icon-off {
+  color: #d9d9d9;
 }
