@@ -1,3 +1,13 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin: 0;
+  padding: -1px 0 0 0;
+}
+
 .App {
   text-align: center;
   color: #4d4d4d;
@@ -52,4 +62,23 @@
 
 .check-icon-off {
   color: #d9d9d9;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+}
+
+.side-icon {
+  width: 5vh;
+  height: 5vh;
+}
+
+.content-text {
+  text-align: left;
+}
+
+.content-text.todo-checked {
+  color: #d9d9d9;
+  text-decoration: line-through;
 }

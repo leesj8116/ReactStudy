@@ -29,13 +29,21 @@ const InputField = ({todoList, setTodoList}: InputFieldProps) => {
         }
     }
 
+    const allCheckedEvent = (e: React.MouseEvent<SVGAElement>) => {
+        
+        const allchecked = e.currentTarget.classList.contains('check-icon-on');
+
+        setTodoList(todoList.map(e => {return {...e, checked: !allchecked}}))
+    }
+
     return (
         <div className='input-field box-size'>
             <div className='all-check'>
                 {(todoList.length !== 0) && 
-                <BiChevronDown
+                <BiChevronDown size={'5vh'}
                     // 모두 체크되어있을 경우에만 색깔이 진해지도록 함..
                     className={todoList.filter(e => !e.checked).length === 0 ? 'check-icon-on' : 'check-icon-off'}
+                    onClick={allCheckedEvent}
                 />}
             </div>
             <input

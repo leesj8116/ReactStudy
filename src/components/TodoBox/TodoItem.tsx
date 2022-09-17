@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { BiCheckCircle, BiCircle, BiX } from 'react-icons/bi';
 import { TODO } from './TodoBox';
 
 
@@ -14,11 +15,20 @@ type TodoItemProps = {
 
 const TodoItem = ({id, checked, context, todoList, setTodoList}: TodoItemProps) => {
 
+    // context의 내용을 편집 태그로 변경하도록 해주는 flag
+    const [editFlag, setEditFlag] = useState<boolean>(false);
+
+    // X 표시를 띄우기 위해 호버 상태를 확인하는 flag
+    const [hoverFlag, setHoverFlag] = useState<boolean>(false);
+
+
     /**
-     * TodoItem을 클릭시 checked를 on/off 해주는 함수
+     * 좌측의 동그라미를 클릭시 checked를 on/off 해주는 함수
      * @param e 
      */
-    const onClickEvent = (e:React.MouseEvent<HTMLDivElement>) => {
+    const todoCheckedEvent = (e:React.MouseEvent<HTMLSpanElement>) => {
+        e.stopPropagation();
+        
         setTodoList(todoList.map(todo => {
             if (todo.id === id) {
                 todo.checked = !todo.checked;
@@ -27,10 +37,24 @@ const TodoItem = ({id, checked, context, todoList, setTodoList}: TodoItemProps) 
         }));
     }
 
+    // 클릭했을 때 선택한 todo를 삭제하는 이벤트
+    const deleteItemEvent = (e:React.MouseEvent<SVGAElement>) => {
+        e.stopPropagation();
+        setTodoList(todoList.filter(todo => todo.id !== id));
+    }
+
     return (
-        <div className='box-size' onClick={onClickEvent}>
-            {id} {checked ? 'true' : 'false'} {context}
-        </div>
+        <li className='box-size item' onMouseOver={() => setHoverFlag(true)} onMouseLeave={() => setHoverFlag(false)}>
+            <span className='side-icon' onClick={todoCheckedEvent}>
+                {checked ? <BiCheckCircle size={'5vh'} color='#008000'/> : <BiCircle size={'5vh'}/>}
+            </span>
+            <span className={'content-text  ' + (checked ? 'todo-checked' : '')}>
+                {context}
+            </span>
+            <span>
+                {hoverFlag && <BiX size={'5vh'} color='#cc9a9a' onClick={deleteItemEvent} />}
+            </span> 
+        </li>
     );
 }
 
