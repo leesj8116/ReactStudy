@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { BiCheckCircle, BiCircle, BiX } from 'react-icons/bi';
+import { ICON_SIZE } from '../../CONST_VALUE';
 import { TODO } from './TodoBox';
 
 
@@ -11,7 +12,6 @@ type TodoItemProps = {
     todoList: TODO[],
     setTodoList: Dispatch<SetStateAction<TODO[]>>
 }
-
 
 const TodoItem = ({id, checked, context, todoList, setTodoList}: TodoItemProps) => {
 
@@ -46,13 +46,13 @@ const TodoItem = ({id, checked, context, todoList, setTodoList}: TodoItemProps) 
     return (
         <li className='box-size item' onMouseOver={() => setHoverFlag(true)} onMouseLeave={() => setHoverFlag(false)}>
             <span className='side-icon' onClick={todoCheckedEvent}>
-                {checked ? <BiCheckCircle size={'5vh'} color='#008000'/> : <BiCircle size={'5vh'}/>}
+                {checked ? <BiCheckCircle size={ICON_SIZE} color='#008000'/> : <BiCircle size={ICON_SIZE}/>}
             </span>
             <span className={'content-text  ' + (checked ? 'todo-checked' : '')}>
                 {context}
             </span>
             <span>
-                {hoverFlag && <BiX size={'5vh'} color='#cc9a9a' onClick={deleteItemEvent} />}
+                {hoverFlag && <BiX size={ICON_SIZE} color='#cc9a9a' onClick={deleteItemEvent} />}
             </span> 
         </li>
     );

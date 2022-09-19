@@ -15,7 +15,7 @@ ul li {
 
 .title {
   text-align: center;
-  font-size: 3em;
+  font-size: 5em;
   line-height: 1.4em;
   margin-bottom: 0.2em;
   color: rgba(175, 47, 47, 0.15);
@@ -27,11 +27,11 @@ ul li {
 }
 
 .box-size {
-  width: 40vw;
-  height: 5vh;
+  width: 500px;
+  height: 50px;
   margin: 0 auto;
   border: 1px solid #999;
-  line-height: 5vh;
+  line-height: 50px;
 }
 
 .input-field {
@@ -42,13 +42,13 @@ ul li {
 .input-field .all-check {
   display: fixed;
   top: auto;
-  width: 5vh;
-  height: 5vh;
-  /* line-height: 5vh; */
+  width: 50px;
+  height: 50px;
+  /* line-height: 50px; */
 }
 
 .input-field input {
-  width: 40vw;
+  width: 500px;
   border: none;
 }
 
@@ -70,8 +70,8 @@ ul li {
 }
 
 .side-icon {
-  width: 5vh;
-  height: 5vh;
+  width: 50px;
+  height: 50px;
 }
 
 .content-text {
@@ -81,4 +81,27 @@ ul li {
 .content-text.todo-checked {
   color: #d9d9d9;
   text-decoration: line-through;
+}
+
+.option-line {
+  display: grid;
+  grid-template-columns: 5fr 6fr 5fr;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+}
+
+.option li {
+  list-style: none;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.option li.selected {
+  border: 1px solid rgba(175, 47, 47, 0.15);
 }

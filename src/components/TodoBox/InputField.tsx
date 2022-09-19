@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { BiChevronDown } from "react-icons/bi";
+import { ICON_SIZE } from '../../CONST_VALUE';
 import type { TODO } from "./TodoBox"
 
 // 상위 컴포넌트에 있는 state를 함께 활용
@@ -40,7 +41,7 @@ const InputField = ({todoList, setTodoList}: InputFieldProps) => {
         <div className='input-field box-size'>
             <div className='all-check'>
                 {(todoList.length !== 0) && 
-                <BiChevronDown size={'5vh'}
+                <BiChevronDown size={ICON_SIZE}
                     // 모두 체크되어있을 경우에만 색깔이 진해지도록 함..
                     className={todoList.filter(e => !e.checked).length === 0 ? 'check-icon-on' : 'check-icon-off'}
                     onClick={allCheckedEvent}

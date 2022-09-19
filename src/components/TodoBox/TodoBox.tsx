@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InputField from './InputField';
+import OptionLine from './OptionLine';
 import TodoItem from './TodoItem';
 
 export interface TODO {
@@ -17,7 +18,6 @@ const TodoBox = () => {
             <ul>
                 {todoList.map(e => {
                     return (
-
                         // @TODO: 어떻게 TODO와 todoList, setTodoList를 하나의 props로 전달할 수 있을까
                         <TodoItem
                             key={e.id}
@@ -27,7 +27,7 @@ const TodoBox = () => {
                     );
                 })}
             </ul>
-
+            {todoList.length !== 0 && <OptionLine todoList={todoList} setTodoList={setTodoList} />}
         </div>
     );
 }
