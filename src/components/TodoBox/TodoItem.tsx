@@ -6,7 +6,7 @@ import { TODO } from './TodoBox';
 
 // @TODO: TODO와 todoList, setTodoList를 이렇게 풀어헤치지 않고 전달하는 방법은?
 type TodoItemProps = {
-    id: number,
+    id: string,
     checked: boolean,
     context: string,
     todoList: TODO[],

@@ -4,7 +4,7 @@ import OptionLine from './OptionLine';
 import TodoItem from './TodoItem';
 
 export interface TODO {
-    id: number;         // 내부 번호
+    id: string;         // 내부 번호
     checked: boolean;   // 완료 여부
     context: string;    // 내용
 }

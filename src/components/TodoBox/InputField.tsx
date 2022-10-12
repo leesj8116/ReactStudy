@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { BiChevronDown } from "react-icons/bi";
+import uuid from 'react-uuid';
 import { ICON_SIZE } from '../../CONST_VALUE';
 import type { TODO } from "./TodoBox"
 
@@ -21,7 +22,7 @@ const InputField = ({todoList, setTodoList}: InputFieldProps) => {
         if (e.key === 'Enter' && e.currentTarget.value.replace(/^[\s]+$/gm, '').length !== 0) {
 
             setTodoList([...todoList, {
-                id: cnt++,
+                id: uuid(),
                 checked: false,
                 context: e.currentTarget.value
             }])
