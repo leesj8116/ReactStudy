@@ -38,13 +38,17 @@ const InputField = ({todoList, setTodoList}: InputFieldProps) => {
         setTodoList(todoList.map(e => {return {...e, checked: !allchecked}}))
     }
 
+    // 리렌더 방지를 위해 상위에서 계산 후 하위로 전달
+    // every 함수 : 모든 값이 해당 조건을 통과하는지 확인
+    const isChecked = todoList.every(todo => todo.checked);
+
     return (
         <div className='input-field box-size'>
             <div className='all-check'>
                 {(todoList.length !== 0) && 
                 <BiChevronDown size={ICON_SIZE}
                     // 모두 체크되어있을 경우에만 색깔이 진해지도록 함..
-                    className={todoList.filter(e => !e.checked).length === 0 ? 'check-icon-on' : 'check-icon-off'}
+                    className={ isChecked ? 'check-icon-on' : 'check-icon-off'}
                     onClick={allCheckedEvent}
                 />}
             </div>
