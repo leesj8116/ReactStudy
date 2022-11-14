@@ -8,6 +8,7 @@
 - 리랜더 방지를 위한 화면과 계산 분리
 - id의 적절한 활용
 - Array의 기본 내장 함수 : every, map, filter, forEach, reduce, ...
+- stopPropagation() : 부모 태그로의 이벤트 전달 중지
 
 ## 차후 진행하고 싶은 것
 - redux 적용
