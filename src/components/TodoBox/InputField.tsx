@@ -1,18 +1,16 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { BiChevronDown } from "react-icons/bi";
-import uuid from 'react-uuid';
 import { ICON_SIZE } from '../../CONST_VALUE';
-import type { TODO } from "./TodoBox"
 
-// 상위 컴포넌트에 있는 state를 함께 활용
+// todoList에 대한 관리는 상위 컴포넌트에서 진행
 type InputFieldProps = {
-    todoList: TODO[],
-    setTodoList: Dispatch<SetStateAction<TODO[]>>
+    addTodo: (inputContext: string) => void,
+    isEmpty: boolean,
+    isAllChecked: boolean,
+    allCheckedChange: (flag: boolean) => void,
 };
 
-let cnt = 1;
-
-const InputField = ({todoList, setTodoList}: InputFieldProps) => {
+const InputField = ({addTodo, isEmpty, isAllChecked, allCheckedChange}: InputFieldProps) => {
 
     /**
      * Enter 이벤트 : 입력한 내용을 todoList에 반영한다
@@ -21,34 +19,26 @@ const InputField = ({todoList, setTodoList}: InputFieldProps) => {
     const onEnterPressEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && e.currentTarget.value.replace(/^[\s]+$/gm, '').length !== 0) {
 
-            setTodoList([...todoList, {
-                id: uuid(),
-                checked: false,
-                context: e.currentTarget.value
-            }])
-
-            e.currentTarget.value = '';
+            addTodo(e.currentTarget.value);
+            e.currentTarget.value = '';     // 목록에 추가를 완료한 값은 초기화
         }
     }
 
-    const allCheckedEvent = (e: React.MouseEvent<SVGAElement>) => {
-        
-        const allchecked = e.currentTarget.classList.contains('check-icon-on');
-
-        setTodoList(todoList.map(e => {return {...e, checked: !allchecked}}))
+    /**
+     * check-icon 이벤트 : 모든 todo의 checked 상태를 변경한다
+     * @param e 
+     */
+    const allCheckedEvent = (e: React.MouseEvent<SVGAElement>) => {        
+        const allchecked = e.currentTarget.classList.contains('check-icon-off');
+        allCheckedChange(allchecked);
     }
-
-    // 리렌더 방지를 위해 상위에서 계산 후 하위로 전달
-    // every 함수 : 모든 값이 해당 조건을 통과하는지 확인
-    const isChecked = todoList.every(todo => todo.checked);
 
     return (
         <div className='input-field box-size'>
             <div className='all-check'>
-                {(todoList.length !== 0) && 
+                {!isEmpty && 
                 <BiChevronDown size={ICON_SIZE}
-                    // 모두 체크되어있을 경우에만 색깔이 진해지도록 함..
-                    className={ isChecked ? 'check-icon-on' : 'check-icon-off'}
+                    className={ isAllChecked ? 'check-icon-on' : 'check-icon-off'}
                     onClick={allCheckedEvent}
                 />}
             </div>
