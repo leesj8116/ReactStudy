@@ -6,14 +6,12 @@ import { TODO } from './TodoBox';
 
 // @TODO: TODO와 todoList, setTodoList를 이렇게 풀어헤치지 않고 전달하는 방법은?
 type TodoItemProps = {
-    id: string,
-    checked: boolean,
-    context: string,
-    todoList: TODO[],
-    setTodoList: Dispatch<SetStateAction<TODO[]>>
+    todo: TODO,
+    toggleTodoChecked: (id: string) => void,
+    deleteTodo: (id: string) => void,
 }
 
-const TodoItem = ({id, checked, context, todoList, setTodoList}: TodoItemProps) => {
+const TodoItem = ({todo, toggleTodoChecked, deleteTodo}: TodoItemProps) => {
 
     // context의 내용을 편집 태그로 변경하도록 해주는 flag
     const [editFlag, setEditFlag] = useState<boolean>(false);
@@ -21,38 +19,34 @@ const TodoItem = ({id, checked, context, todoList, setTodoList}: TodoItemProps) 
     // X 표시를 띄우기 위해 호버 상태를 확인하는 flag
     const [hoverFlag, setHoverFlag] = useState<boolean>(false);
 
-
     /**
-     * 좌측의 동그라미를 클릭시 checked를 on/off 해주는 함수
+     * todo checkbox 선택 이벤트 : todo의 checked를 토글한다.
      * @param e 
      */
-    const todoCheckedEvent = (e:React.MouseEvent<HTMLSpanElement>) => {
+    const todoChecked = (e:React.MouseEvent<HTMLSpanElement>) => {
         e.stopPropagation();
-        
-        setTodoList(todoList.map(todo => {
-            if (todo.id === id) {
-                todo.checked = !todo.checked;
-            }
-            return todo;
-        }));
+        toggleTodoChecked(todo.id);
     }
 
-    // 클릭했을 때 선택한 todo를 삭제하는 이벤트
-    const deleteItemEvent = (e:React.MouseEvent<SVGAElement>) => {
+    /**
+     * X 이벤트 : 선택한 목록의 todo를 삭제한다
+     * @param e 
+     */
+    const deleteItem = (e:React.MouseEvent<SVGAElement>) => {
         e.stopPropagation();
-        setTodoList(todoList.filter(todo => todo.id !== id));
+        deleteTodo(todo.id);
     }
 
     return (
         <li className='box-size item' onMouseOver={() => setHoverFlag(true)} onMouseLeave={() => setHoverFlag(false)}>
-            <span className='side-icon' onClick={todoCheckedEvent}>
-                {checked ? <BiCheckCircle size={ICON_SIZE} color='#008000'/> : <BiCircle size={ICON_SIZE}/>}
+            <span className='side-icon' onClick={todoChecked}>
+                {todo.checked ? <BiCheckCircle size={ICON_SIZE} color='#008000'/> : <BiCircle size={ICON_SIZE}/>}
             </span>
-            <span className={'content-text  ' + (checked ? 'todo-checked' : '')}>
-                {context}
+            <span className={'content-text  ' + (todo.checked ? 'todo-checked' : '')}>
+                {todo.context}
             </span>
             <span>
-                {hoverFlag && <BiX size={ICON_SIZE} color='#cc9a9a' onClick={deleteItemEvent} />}
+                {hoverFlag && <BiX size={ICON_SIZE} color='#cc9a9a' onClick={deleteItem} />}
             </span> 
         </li>
     );

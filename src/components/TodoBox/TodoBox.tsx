@@ -20,11 +20,11 @@ const TodoBox = () => {
      * todoList에 todo를 추가한다.
      * @param inputContext 사용자가 입력한 해야할 일
      */
-    const addTodo = (inputConetext: string) => {
+    const addTodo = (inputContext: string) => {
         setTodoList([...todoList, {
             id: uuid(),
             checked: false,
-            context: inputConetext
+            context: inputContext
         }])
     }
 
@@ -36,6 +36,24 @@ const TodoBox = () => {
         setTodoList(todoList.map(todo => {return {...todo, checked: flag}}));
     }
 
+    /**
+     * id값에 일치하는 todo의 checked를 토글한다.
+     * @param id 
+     */
+    const toggleTodoChecked = (id: string) => {
+        setTodoList(todoList.map(todo => {
+            return todo.id === id ? {...todo, checked: !(todo.checked)} : todo
+        }))
+    }
+
+    /**
+     * id값에 일치하는 todo를 todoList에서 삭제한다.
+     * @param id 
+     */
+    const deleteTodo = (id: string) => {
+        setTodoList(todoList.filter(todo => todo.id !== id));
+    }
+
     return (
         <div className='TodoBox'>
             <InputField addTodo={addTodo} allCheckedChange={allCheckedChange} isEmpty={isEmpty} isAllChecked={isAllChecked} />
@@ -45,8 +63,10 @@ const TodoBox = () => {
                         // @TODO: 어떻게 TODO와 todoList, setTodoList를 하나의 props로 전달할 수 있을까
                         <TodoItem
                             key={e.id}
-                            id={e.id} checked={e.checked} context={e.context}
-                            todoList={todoList} setTodoList={setTodoList}
+                            todo={e}
+                            toggleTodoChecked={toggleTodoChecked}
+                            deleteTodo={deleteTodo}
+                            
                         />
                     );
                 })}
