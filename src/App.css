@@ -50,6 +50,7 @@ ul li {
 .input-field input {
   width: 500px;
   border: none;
+  font-size: 1.5em;
 }
 
 .input-field input:focus {
@@ -75,7 +76,14 @@ ul li {
 }
 
 .content-text {
+  margin-left: 10px;
   text-align: left;
+  font-size: 1.5em;
+}
+
+/* @TODO: input 태그를 칸 안에 꽉 차게 채울 수는 없을까 */
+input.content-text {
+  width: 100%;
 }
 
 .content-text.todo-checked {
