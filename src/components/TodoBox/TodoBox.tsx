@@ -81,7 +81,7 @@ const TodoBox = () => {
                     );
                 })}
             </ul>
-            {todoList.length !== 0 && <OptionLine todoList={todoList} setTodoList={setTodoList} />}
+            {todoList.length !== 0 && <OptionLine todoList={todoList} />}
         </div>
     );
 }
