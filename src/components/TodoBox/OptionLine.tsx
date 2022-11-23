@@ -1,34 +1,34 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { LIST_OPTION } from "../../CONST_VALUE";
+import { CATEGORY_OPTION, CATEGORY_TYPE } from "../../CONST_VALUE";
 import { TODO } from "./TodoBox";
 
 type optionLineProps = {
-    todoList: TODO[],
-    // setTodoList: Dispatch<SetStateAction<TODO[]>>
+    todoCnt: number,
+    category: CATEGORY_OPTION,
+    changeCategory: (category: CATEGORY_TYPE) => void,
 };
 
-const OptionLine = ({todoList}: optionLineProps) => {
-    const [category, setCategory] = useState<string>(LIST_OPTION[0]);   // 카테고리
-    const [categoryItem, setCategoryItem] = useState<TODO[]>([]);       // 카테고리에 의해 분류된 아이템
+const OptionLine = ({todoCnt, category, changeCategory}: optionLineProps) => {
 
     // 하단의 옵션 클릭시 category 값을 변경하는 이벤트
     const optionClickEvent = (event: React.MouseEvent<HTMLLIElement>) => {
         const text = event.currentTarget.textContent;
 
-        // @TODO : LIST_OPTION을 통해서 값을 지정할 수는 없을까..
-        // category값을 string으로 지정해서 문제일까 고민 중
-        setCategory(text ?? LIST_OPTION[0]);
+        // @TODO: enum과 string 타입을 유연하게 전환하면서 활용하고 싶은데, 쉽지 않음..
+        Object.entries(CATEGORY_OPTION).filter(([key,]) => key == text?.toUpperCase()).forEach(([key, categoryOption]) => {
+            changeCategory(categoryOption);
+        })
     }
 
     // 아이템 갯수에 따른 안내 메세지
-    const cntText = `${todoList.length} ${todoList.length === 1 ? 'item' : 'items'} left`;
+    const cntText = `${todoCnt} ${todoCnt === 1 ? 'item' : 'items'} left`;
 
     // 카테고리 항목을 표현하기 위한 li 태그 
-    const LIST_OPTION_LI = LIST_OPTION.map(e => {
+    const LIST_OPTION_LI = Object.entries(CATEGORY_OPTION).map(([key, categoryOption]) => {
         return (
-            <li className={e === category ? 'selected' : ''}
+            <li className={categoryOption == category ? 'selected' : ''}
                 onClick={optionClickEvent}>
-                {e}
+                {categoryOption}
             </li>
         );
     })
