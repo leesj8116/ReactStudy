@@ -1,6 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React from "react";
 import { CATEGORY_OPTION, CATEGORY_TYPE } from "../../CONST_VALUE";
-import { TODO } from "./TodoBox";
 
 type optionLineProps = {
     todoCnt: number,
@@ -15,7 +14,7 @@ const OptionLine = ({todoCnt, category, changeCategory}: optionLineProps) => {
         const text = event.currentTarget.textContent;
 
         // @TODO: enum과 string 타입을 유연하게 전환하면서 활용하고 싶은데, 쉽지 않음..
-        Object.entries(CATEGORY_OPTION).filter(([key,]) => key == text?.toUpperCase()).forEach(([key, categoryOption]) => {
+        Object.entries(CATEGORY_OPTION).filter(([key,]) => key === text?.toUpperCase()).forEach(([key, categoryOption]) => {
             changeCategory(categoryOption);
         })
     }
@@ -26,7 +25,7 @@ const OptionLine = ({todoCnt, category, changeCategory}: optionLineProps) => {
     // 카테고리 항목을 표현하기 위한 li 태그 
     const LIST_OPTION_LI = Object.entries(CATEGORY_OPTION).map(([key, categoryOption]) => {
         return (
-            <li className={categoryOption == category ? 'selected' : ''}
+            <li className={categoryOption === category ? 'selected' : ''}
                 onClick={optionClickEvent}>
                 {categoryOption}
             </li>
