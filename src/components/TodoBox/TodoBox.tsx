@@ -82,12 +82,13 @@ const TodoBox = () => {
     const optionLineFilter = () => {
         return todoList.filter(todo => {
             switch(category) {
-                case CATEGORY_OPTION.ALL:
-                    return true;
                 case CATEGORY_OPTION.ACTIVE:
                     return !todo.checked;
                 case CATEGORY_OPTION.COMPLETED:
                     return todo.checked;
+                case CATEGORY_OPTION.ALL:
+                default:
+                    return true;
             }
         });
     }
