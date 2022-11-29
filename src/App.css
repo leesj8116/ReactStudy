@@ -113,3 +113,7 @@ input.content-text {
 .option li.selected {
   border: 1px solid rgba(175, 47, 47, 0.15);
 }
+
+.option li {
+  cursor: pointer;
+}
