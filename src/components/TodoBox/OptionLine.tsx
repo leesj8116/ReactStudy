@@ -10,7 +10,15 @@ type optionLineProps = {
 
 const OptionLine = ({todoCnt, category, changeCategory, clearCompletedTodo}: optionLineProps) => {
 
-    // 하단의 옵션 클릭시 category 값을 변경하는 이벤트
+    /**
+     * 각 category에 포함된 todo의 갯수를 표현하는 문구
+     */
+     const cntText = `${todoCnt} ${todoCnt === 1 ? 'item' : 'items'} left`;
+
+    /**
+     * 선택한 category로 변경하는 이벤트
+     * @param event
+     */
     const optionClickEvent = (event: React.MouseEvent<HTMLLIElement>) => {
         const text = event.currentTarget.textContent;
 
@@ -20,10 +28,9 @@ const OptionLine = ({todoCnt, category, changeCategory, clearCompletedTodo}: opt
         });
     }
 
-    // 아이템 갯수에 따른 안내 메세지
-    const cntText = `${todoCnt} ${todoCnt === 1 ? 'item' : 'items'} left`;
-
-    // 카테고리 항목을 표현하기 위한 li 태그 
+    /**
+     * CATEGORY_OPTION 목록을 li 태그로 생성하는 함수
+     */
     const LIST_OPTION_LI = Object.entries(CATEGORY_OPTION).map(([key, categoryOption]) => {
         return (
             <li className={categoryOption === category ? 'selected' : ''}
@@ -33,6 +40,10 @@ const OptionLine = ({todoCnt, category, changeCategory, clearCompletedTodo}: opt
         );
     });
 
+    /**
+     * 'clear completed' 버튼을 클릭시 실행하는 이벤트
+     * @param event 
+     */
     const clearCompletedBtnClickEvent = (event: React.MouseEvent<HTMLSpanElement>) => {
         if (typeof clearCompletedTodo !== 'undefined') {
             clearCompletedTodo();
