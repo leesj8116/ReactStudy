@@ -106,12 +106,16 @@ input.content-text {
   height: 30px;
   line-height: 30px;
   padding: 0 10px;
-  margin: 10px 0;
+  margin: 10px 5px;
   border-radius: 5px;
 }
 
 .option li.selected {
-  border: 1px solid rgba(175, 47, 47, 0.15);
+  border: 1px solid rgba(175, 47, 47, 0.3);
+}
+
+.option li:hover {
+  border: 1px solid rgba(175, 47, 47, 0.1);
 }
 
 .option li {
