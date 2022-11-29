@@ -79,7 +79,7 @@ const TodoBox = () => {
      * category 선택에 따라 todo를 분류하여 반환한다.
      * @returns 
      */
-    const OptionLineFilter = () => {
+    const optionLineFilter = () => {
         return todoList.filter(todo => {
             switch(category) {
                 case CATEGORY_OPTION.ALL:
@@ -91,12 +91,19 @@ const TodoBox = () => {
             }
         });
     }
+    
+    /**
+     * 완료한 todo를 삭제한다
+     */
+    const clearCompletedTodo = (todoList.filter(e => e.checked).length === 0) ? undefined : () => {
+        setTodoList(todoList.filter(e => !e.checked));
+    }
 
     return (
         <div className='TodoBox'>
             <InputField addTodo={addTodo} allCheckedChange={allCheckedChange} isEmpty={isEmpty} isAllChecked={isAllChecked} />
             <ul>
-                {OptionLineFilter().map(e => {
+                {optionLineFilter().map(e => {
                     return (
                         <TodoItem
                             key={e.id}
@@ -108,7 +115,7 @@ const TodoBox = () => {
                     );
                 })}
             </ul>
-            {todoList.length !== 0 && <OptionLine todoCnt={OptionLineFilter().length} category={category} changeCategory={changeCategory} />}
+            {todoList.length !== 0 && <OptionLine todoCnt={optionLineFilter().length} category={category} changeCategory={changeCategory} clearCompletedTodo={clearCompletedTodo} />}
         </div>
     );
 }
