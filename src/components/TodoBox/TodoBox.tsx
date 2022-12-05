@@ -68,14 +68,6 @@ const TodoBox = () => {
     }
 
     /**
-     * 입력받은 category 값으로 현재 선택한 카테고리 값을 변경한다.
-     * @param category CATEGORY_OPTION 중의 하나
-     */
-    const changeCategory = (category: CATEGORY_TYPE) => {
-        setCategory(category);
-    }
-
-    /**
      * category 선택에 따라 todo를 분류하여 반환한다.
      * @returns 
      */
@@ -116,7 +108,7 @@ const TodoBox = () => {
                     );
                 })}
             </ul>
-            {todoList.length !== 0 && <OptionLine todoCnt={optionLineFilter().length} category={category} changeCategory={changeCategory} clearCompletedTodo={clearCompletedTodo} />}
+            {todoList.length !== 0 && <OptionLine todoCnt={optionLineFilter().length} category={category} setCategory={setCategory} clearCompletedTodo={clearCompletedTodo} />}
         </div>
     );
 }

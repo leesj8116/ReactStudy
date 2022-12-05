@@ -4,11 +4,11 @@ import { CATEGORY_OPTION, CATEGORY_TYPE } from "../../CONST_VALUE";
 type optionLineProps = {
     todoCnt: number,
     category: CATEGORY_OPTION,
-    changeCategory: (category: CATEGORY_TYPE) => void,
+    setCategory: (category: CATEGORY_TYPE) => void,
     clearCompletedTodo: (() => void) | undefined,
 };
 
-const OptionLine = ({todoCnt, category, changeCategory, clearCompletedTodo}: optionLineProps) => {
+const OptionLine = ({todoCnt, category, setCategory, clearCompletedTodo}: optionLineProps) => {
 
     /**
      * 각 category에 포함된 todo의 갯수를 표현하는 문구
@@ -24,7 +24,7 @@ const OptionLine = ({todoCnt, category, changeCategory, clearCompletedTodo}: opt
 
         // @TODO: enum과 string 타입을 유연하게 전환하면서 활용하고 싶은데, 쉽지 않음..
         Object.entries(CATEGORY_OPTION).filter(([key,]) => key === text?.toUpperCase()).forEach(([key, categoryOption]) => {
-            changeCategory(categoryOption);
+            setCategory(categoryOption);
         });
     }
 
