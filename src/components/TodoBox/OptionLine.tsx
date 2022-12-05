@@ -1,39 +1,62 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { LIST_OPTION } from "../../CONST_VALUE";
-import { TODO } from "./TodoBox";
+import React from "react";
+import { CATEGORY_OPTION } from "../../CONST_VALUE";
 
 type optionLineProps = {
-    todoList: TODO[],
-    setTodoList: Dispatch<SetStateAction<TODO[]>>
+    todoCnt: number,
+    category: CATEGORY_OPTION,
+    setCategory: (category: CATEGORY_OPTION) => void,
+    clearCompletedTodo: (() => void) | undefined,
 };
 
-const OptionLine = ({todoList, setTodoList}: optionLineProps) => {
-    const [category, setCategory] = useState<string>(LIST_OPTION[0]);
+const OptionLine = ({todoCnt, category, setCategory, clearCompletedTodo}: optionLineProps) => {
 
+    /**
+     * 각 category에 포함된 todo의 갯수를 표현하는 문구
+     */
+     const cntText = `${todoCnt} ${todoCnt === 1 ? 'item' : 'items'} left`;
 
-    // 하단의 옵션 클릭시 category 값을 변경하는 이벤트
+    /**
+     * 선택한 category로 변경하는 이벤트
+     * @param event
+     */
     const optionClickEvent = (event: React.MouseEvent<HTMLLIElement>) => {
         const text = event.currentTarget.textContent;
 
-        // @TODO : LIST_OPTION을 통해서 값을 지정할 수는 없을까..
-        // category값을 string으로 지정해서 문제일까 고민 중
-        setCategory(text ?? LIST_OPTION[0]);
+        // @TODO: enum과 string 타입을 유연하게 전환하면서 활용하고 싶은데, 쉽지 않음..
+        Object.entries(CATEGORY_OPTION).filter(([key,]) => key === text?.toUpperCase()).forEach(([key, categoryOption]) => {
+            setCategory(categoryOption);
+        });
+    }
+
+    /**
+     * CATEGORY_OPTION 목록을 li 태그로 생성하는 함수
+     */
+    const LIST_OPTION_LI = Object.entries(CATEGORY_OPTION).map(([key, categoryOption]) => {
+        return (
+            <li className={categoryOption === category ? 'selected' : ''}
+                onClick={optionClickEvent}>
+                {categoryOption}
+            </li>
+        );
+    });
+
+    /**
+     * 'clear completed' 버튼을 클릭시 실행하는 이벤트
+     * @param event 
+     */
+    const clearCompletedBtnClickEvent = (event: React.MouseEvent<HTMLSpanElement>) => {
+        if (typeof clearCompletedTodo !== 'undefined') {
+            clearCompletedTodo();
+        }
     }
 
     return (
         <div className='box-size option-line'>
-            <span>{`${todoList.length} ${todoList.length === 1 ? 'item' : 'items'} left`}</span>
+            <span>{cntText}</span>
             <ul className="option">
-                {LIST_OPTION.map(e => {
-                    return (
-                        <li className={e === category ? 'selected' : ''}
-                            onClick={optionClickEvent}>
-                            {e}
-                        </li>
-                    );
-                })}
+                {LIST_OPTION_LI}
             </ul>
-            <span>clear completed</span>
+            <span onClick={clearCompletedBtnClickEvent} style={{cursor: 'pointer', display: clearCompletedTodo === undefined ? 'none' : 'block'}}>clear completed</span>
         </div>
     );
 }
