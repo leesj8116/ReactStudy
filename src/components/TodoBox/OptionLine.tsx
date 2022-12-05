@@ -16,25 +16,12 @@ const OptionLine = ({todoCnt, category, setCategory, clearCompletedTodo}: option
      const cntText = `${todoCnt} ${todoCnt === 1 ? 'item' : 'items'} left`;
 
     /**
-     * 선택한 category로 변경하는 이벤트
-     * @param event
-     */
-    const optionClickEvent = (event: React.MouseEvent<HTMLLIElement>) => {
-        const text = event.currentTarget.textContent;
-
-        // @TODO: enum과 string 타입을 유연하게 전환하면서 활용하고 싶은데, 쉽지 않음..
-        Object.entries(CATEGORY_OPTION).filter(([key,]) => key === text?.toUpperCase()).forEach(([key, categoryOption]) => {
-            setCategory(categoryOption);
-        });
-    }
-
-    /**
      * CATEGORY_OPTION 목록을 li 태그로 생성하는 함수
      */
     const LIST_OPTION_LI = Object.entries(CATEGORY_OPTION).map(([key, categoryOption]) => {
         return (
             <li className={categoryOption === category ? 'selected' : ''}
-                onClick={optionClickEvent}>
+                onClick={() => setCategory(categoryOption)}>
                 {categoryOption}
             </li>
         );
