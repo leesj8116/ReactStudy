@@ -3,7 +3,7 @@ import InputField from './InputField';
 import OptionLine from './OptionLine';
 import TodoItem from './TodoItem';
 import uuid from 'react-uuid';
-import { CATEGORY_OPTION, CATEGORY_TYPE } from '../../CONST_VALUE';
+import { CATEGORY_OPTION } from '../../CONST_VALUE';
 
 export interface TODO {
     id: string;         // 내부 번호
@@ -13,7 +13,7 @@ export interface TODO {
 
 const TodoBox = () => {
     const [todoList, setTodoList] = useState<TODO[]>([]);
-    const [category, setCategory] = useState<CATEGORY_TYPE>(CATEGORY_OPTION.ALL);   // 카테고리
+    const [category, setCategory] = useState<CATEGORY_OPTION>(CATEGORY_OPTION.ALL);   // 카테고리
 
     const isEmpty = todoList.length === 0;    // todo 항목이 비었는지 확인
     const isAllChecked = todoList.every(todo => todo.checked); // todo 가 모두 완료되었는지 확인

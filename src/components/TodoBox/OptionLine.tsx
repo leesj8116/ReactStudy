@@ -1,10 +1,10 @@
 import React from "react";
-import { CATEGORY_OPTION, CATEGORY_TYPE } from "../../CONST_VALUE";
+import { CATEGORY_OPTION } from "../../CONST_VALUE";
 
 type optionLineProps = {
     todoCnt: number,
     category: CATEGORY_OPTION,
-    setCategory: (category: CATEGORY_TYPE) => void,
+    setCategory: (category: CATEGORY_OPTION) => void,
     clearCompletedTodo: (() => void) | undefined,
 };
 
