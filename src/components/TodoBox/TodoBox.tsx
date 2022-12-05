@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import InputField from './InputField';
 import OptionLine from './OptionLine';
 import TodoItem from './TodoItem';
@@ -66,25 +66,21 @@ const TodoBox = () => {
             return todo.id === id ? {...todo, context: context} : todo
         }));
     }
-
-    /**
-     * category 선택에 따라 todo를 분류하여 반환한다.
-     * @returns 
-     */
-    const optionLineFilter = () => {
-        return todoList.filter(todo => {
-            switch(category) {
-                case CATEGORY_OPTION.ACTIVE:
-                    return !todo.checked;
-                case CATEGORY_OPTION.COMPLETED:
-                    return todo.checked;
-                case CATEGORY_OPTION.ALL:
-                default:
-                    return true;
-            }
-        });
-    }
     
+    /**
+     * 필터링된 리스트만 반환한다
+     */
+    const filteredList = useMemo(() => {
+        switch(category) {
+            case CATEGORY_OPTION.ACTIVE:
+                return todoList.filter(({checked}) => checked);
+            case CATEGORY_OPTION.COMPLETED:
+                return todoList.filter(({checked}) => checked);
+            default:
+                return todoList;
+        }
+    }, [category, todoList]);
+
     /**
      * 완료한 todo를 삭제한다
      */
@@ -96,7 +92,7 @@ const TodoBox = () => {
         <div className='TodoBox'>
             <InputField addTodo={addTodo} allCheckedChange={allCheckedChange} isEmpty={isEmpty} isAllChecked={isAllChecked} />
             <ul>
-                {optionLineFilter().map(e => {
+                {filteredList.map(e => {
                     return (
                         <TodoItem
                             key={e.id}
@@ -108,7 +104,7 @@ const TodoBox = () => {
                     );
                 })}
             </ul>
-            {todoList.length !== 0 && <OptionLine todoCnt={optionLineFilter().length} category={category} setCategory={setCategory} clearCompletedTodo={clearCompletedTodo} />}
+            {todoList.length !== 0 && <OptionLine todoCnt={filteredList.length} category={category} setCategory={setCategory} clearCompletedTodo={clearCompletedTodo} />}
         </div>
     );
 }
